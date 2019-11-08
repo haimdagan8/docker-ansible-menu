@@ -61,7 +61,7 @@ def custom_image():
 
 def ad_hoc():
     command = input("Enter command \n")
-    os.system('ansible all-hosts -i /etc/ansible/hosts -m shell -a ' + '"' + command '"')
+    os.system('ansible all-hosts -i /etc/ansible/hosts -m shell -a ' + '"' + command + '"')
 
 def push_image():
     global client

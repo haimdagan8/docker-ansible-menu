@@ -1,6 +1,5 @@
 import os
 import docker
-from time import sleep
 
 client = docker.from_env()
 
@@ -86,7 +85,6 @@ def push_image():
 def remove_image():
     global client
     print("Docker images are being loaded .. ")
-    time.sleep(2)
     os.system('docker images')
     img = input("Enter image id to remove : ")
     client.images.remove(img, force=True)

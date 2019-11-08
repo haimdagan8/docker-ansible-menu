@@ -2,10 +2,10 @@ import functions
 
 boolean = 0
 while boolean == 0:
-    OPTION = input("Menu :\n    1.Install Docker + Ansible\n    2.Edit Ansible's hosts file\n    3.Pull image from "
+    OPTION = input("Menu :\n    1.Install Docker + Ansible.\n    2.Edit Ansible's hosts file.\n    3.Pull image from "
                    "Docker Hub.\n    4.Create custom image and build it.\n    5.Run a Container.\n    6.Push an image to "
                    "Docker Hub.\n    7.Remove an image.\n    8.Run a single "
-                   "command on hosts.\n    9.Exit\n")
+                   "command on hosts.\n    9.Exit.\n")
     if OPTION == "1":
         functions.installations()
         boolean = 1

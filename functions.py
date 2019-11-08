@@ -88,3 +88,4 @@ def remove_image():
     os.system('docker images')
     img = input("Enter image id to remove : ")
     client.images.remove(img, force=True)
+    os.system('docker images')

@@ -1,14 +1,17 @@
-from os import system
+import os
 import docker
 
 client = docker.from_env()
 
+
 def installations():
-    os.system('sudo apt-get update -y && apt-get install curl -y && curl -fsSL https://get-docker.com/ -o get-docker.sh && sh get-docker.sh && apt-get install ansible -y')
+    os.system(
+        'sudo apt-get update -y && apt-get install curl -y && curl -fsSL https://get-docker.com/ -o get-docker.sh && sh get-docker.sh && apt-get install ansible -y')
     print("Installation completed !!")
 
+
 def edit_hosts():
-    f = open("/etc/ansible/hosts" ,"w")
+    f = open("/etc/ansible/hosts", "w")
     boolean = 0
     ip_list = []
     while boolean == 0:
@@ -23,6 +26,7 @@ def edit_hosts():
             boolean = 1
         elif x == "3":
             boolean = 1
+
 
 def pull_image():
     global client
@@ -41,27 +45,30 @@ def run_container():
     container = client.containers.run(y + ":latest", detach=True, ports=PORTS_DICT)
     print(container.id)
 
+
 def custom_image():
     global client
-    f = open("Dockerfile" ,"w")
+    f = open("Dockerfile", "w")
     image = input("Enter image : ")
     f.write("FROM " + image + ":latest")
     f.close()
     boolean = 0
-    f = open("Dockerfile" ,"a")
+    f = open("Dockerfile", "a")
     while boolean == 0:
         x = input("1.Enter command\n2.Finish the image\n")
         if x == "1":
             command = input("Enter command : \n")
-            f.write("\nRUN " + command )
+            f.write("\nRUN " + command)
         elif x == "2":
             f.close()
             boolean = 1
     client.images.build(path="./")
 
+
 def ad_hoc():
     command = input("Enter command \n")
     os.system('ansible all-hosts -i /etc/ansible/hosts -m shell -a ' + '"' + command + '"')
+
 
 def push_image():
     global client
@@ -71,10 +78,11 @@ def push_image():
     user = input("Enter username : ")
     password = input("Enter password : ")
     login[user] = password
-    for i in client.images.push(REPO + "/" + TAG ,stream=True, auth_config=login ,decode=True):
+    for i in client.images.push(REPO + "/" + TAG, stream=True, auth_config=login, decode=True):
         print(i)
+
 
 def remove_image():
     global client
     img = input("Enter image id to remove : ")
-    client.images.remove(img ,force =True)
+    client.images.remove(img, force=True)

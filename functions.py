@@ -2,7 +2,7 @@ import os
 import docker
 
 client = docker.from_env()
-
+global client
 
 def installations():
     os.system(
@@ -29,7 +29,6 @@ def edit_hosts():
 
 
 def pull_image():
-    global client
     x = input("Enter image : ")
     image = client.images.pull(x + ":latest")
     print(image.id)
@@ -37,7 +36,6 @@ def pull_image():
 
 
 def run_container():
-    global client
     PORTS_DICT = {}
     y = input("Enter image name of container would you like to run : ")
     p = input("Enter port  : ")
@@ -47,7 +45,6 @@ def run_container():
 
 
 def custom_image():
-    global client
     f = open("Dockerfile", "w")
     image = input("Enter image : ")
     f.write("FROM " + image + ":latest")
@@ -71,7 +68,6 @@ def ad_hoc():
 
 
 def push_image():
-    global client
     REPO = input("Enter repository : ")
     TAG = input("Enter tag : ")
     login = dict()
@@ -83,7 +79,6 @@ def push_image():
 
 
 def remove_image():
-    global client
     print("Docker images are being loaded .. ")
     os.system('docker images')
     img = input("Enter image id to remove : ")

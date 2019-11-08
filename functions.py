@@ -1,5 +1,4 @@
-import os
-from time import sleep
+from os import system
 import docker
 
 

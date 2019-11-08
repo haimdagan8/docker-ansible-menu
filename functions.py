@@ -1,7 +1,6 @@
 from os import system
 import docker
 
-
 client = docker.from_env()
 
 def installations():
@@ -63,3 +62,19 @@ def custom_image():
 def ad_hoc():
     command = input("Enter command \n")
     os.system('ansible all-hosts -i /etc/ansible/hosts -m shell -a ' + '"' + command '"')
+
+def push_image():
+    global client
+    REPO = input("Enter repository : ")
+    TAG = input("Enter tag : ")
+    login = dict()
+    user = input("Enter username : ")
+    password = input("Enter password : ")
+    login[user] = password
+    for i in client.images.push(REPO + "/" + TAG ,stream=True, auth_config=login ,decode=True):
+        print(i)
+
+def remove_image():
+    global client
+    img = input("Enter image id to remove : ")
+    client.images.remove(img ,force =True)
